@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/fontawesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <style type=text/css>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .elegant-aero {
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 600px;
+            height: 450px;
+            background: #D2E9FF;
+            padding: 20px 20px 20px 20px;
+            font: 12px Arial, Helvetica, sans-serif;
+            color: #666;
+        }
+
+        .elegant-aero label>span {
+            float: left;
+            margin-top: 10px;
+            color: #5E5E5E;
+        }
+
+        .elegant-aero label {
+            display: block;
+            margin: 0px 0px 5px;
+        }
+
+        .elegant-aero input[type="text"],
+        .elegant-aero input[type="email"],
+        .elegant-aero input[type="number"],
+        .elegant-aero textarea {
+            color: #888;
+            width: 60%;
+            padding: 0px 0px 0px 5px;
+            border: 1px solid #C5E2FF;
+            background: #FBFBFB;
+            outline: 0;
+            -webkit-box-shadow: inset 0px 1px 6px #ECF3F5;
+            box-shadow: inset 0px 1px 6px #ECF3F5;
+            font: 200 12px/25px Arial, Helvetica, sans-serif;
+            height: 20px;
+            line-height: 15px;
+            margin: 2px 6px 16px 0px;
+        }
+
+        .elegant-aero textarea {
+            height: 100px;
+            padding: 5px 0px 0px 5px;
+            width: 60%;
+        }
+
+        #req {
+            display: inline-block;
+            vertical-align: top;
+            color: red;
+            margin-top: 5px;
+        }
+
+        .topnav {
+            overflow: hidden;
+            background-color: #8e82d6;
+            position: relative;
+        }
+
+        .topnav #myLinks {
+            display: none;
+        }
+
+        .topnav a {
+            color: white;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            display: block;
+        }
+
+        .topnav a.icon {
+            background: rgb(103, 103, 202);
+            display: block;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        .topnav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .active {
+            background-color: rgba(94, 94, 228, 0.178);
+            color: white;
+        }
+
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #8e82d6;
+            color: white;
+            text-align: center;
+            padding: 0px 20px;
+        }
+
+        .foot_l {
+            float: left;
+        }
+
+        .foot_r {
+            float: right;
+            padding-right: 50px;
+        }
+
+        body {
+            background-image: url("bg1.png");
+        }
+
+        h1,
+        h4 {
+            margin: 15px 0 4px;
+            font-weight: 400;
+        }
+
+        h4 {
+            margin: 20px 0 4px;
+            font-weight: 400;
+        }
+
+        span {
+            color: red;
+        }
+
+        .small {
+            font-size: 10px;
+            line-height: 18px;
+        }
+
+        .testbox {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: inherit;
+            padding: 3px;
+        }
+
+        form {
+            width: 100%;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 2px 5px #ccc;
+        }
+
+        input {
+            width: calc(100% - 10px);
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            vertical-align: middle;
+        }
+
+        input:hover,
+        textarea:hover,
+        select:hover {
+            outline: none;
+            border: 1px solid #095484;
+            background: #e6eef7;
+        }
+
+        .title-block select,
+        .title-block input {
+            margin-bottom: 10px;
+        }
+
+        select {
+            padding: 7px 0;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+            background: transparent;
+        }
+
+        select,
+        table {
+            width: 100%;
+        }
+
+        option {
+            background: #fff;
+        }
+
+        .day-visited,
+        .time-visited {
+            position: relative;
+        }
+
+        input[type="date"]::-webkit-inner-spin-button {
+            display: none;
+        }
+
+        input[type="time"]::-webkit-inner-spin-button {
+            margin: 2px 22px 0 0;
+        }
+
+        .day-visited i,
+        .time-visited i,
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            position: absolute;
+            top: 8px;
+            font-size: 20px;
+        }
+
+        .day-visited i,
+        .time-visited i {
+            right: 5px;
+            z-index: 1;
+            color: #a9a9a9;
+        }
+
+        [type="date"]::-webkit-calendar-picker-indicator {
+            right: 0;
+            z-index: 2;
+            opacity: 0;
+        }
+
+        .question-answer label {
+            display: block;
+            padding: 0 20px 10px 0;
+        }
+
+        .question-answer input {
+            width: auto;
+            margin-top: -2px;
+        }
+
+        th,
+        td {
+            width: 18%;
+            padding: 15px 0;
+            border-bottom: 1px solid #ccc;
+            text-align: center;
+            vertical-align: unset;
+            line-height: 18px;
+            font-weight: 400;
+            word-break: break-all;
+        }
+
+        .first-col {
+            width: 25%;
+            text-align: left;
+        }
+
+        textarea {
+            width: calc(100% - 6px);
+        }
+
+        .btn-block {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        button {
+            width: 150px;
+            padding: 10px;
+            border: none;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            background-color: #095484;
+            font-size: 16px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0666a3;
+        }
+
+        @media (min-width: 568px) {
+            .title-block {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .title-block select {
+                width: 30%;
+                margin-bottom: 0;
+            }
+
+            .title-block input {
+                width: 31%;
+                margin-bottom: 0;
+            }
+
+            th,
+            td {
+                word-break: keep-all;
+            }
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $("#h").click(function () {
+                alert("You'll be redirected to Home!");
+            });
+        });
+        $("#target").click(function () {
+            alert("Handler for .click() called.");
+        });
+    </script>
+</head>
+
+<body ng-app="app1">
+    <!-- Top Navigation Menu -->
+    <div class="topnav">
+        <a href="#home" class="active">Submit Review</a>
+        <div id="myLinks">
+            <a href="HomePage.html" id="h">Home</a>
+            <a href="AboutUs.html">About</a>
+            <a href="Contact.html">Contact</a>
+        </div>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </div>
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myLinks");
+            if (x.style.display === "block") {
+                x.style.display = "none";
+            } else {
+                x.style.display = "block";
+            }
+        }
+    </script>
+    <br>
+    <br>
+
+    <!-- form validation using angular js -->
+
+    <form name="feedbackForm" class="elegant-aero" action="/feedback_form" method="post">
+        <label>First Name:</label>
+        <input type="text" name="userFirstName" id="firstName" ng-model="firstName" required />
+        <div ng-messages="feedbackForm.userFirstName.$error">
+            <div ng-message="required"></div>
+        </div>
+        <label>Last Name:</label>
+        <input type="text" name="userLastName" id="lastName" ng-model="lastName" required />
+        <div ng-messages="feedbackForm.userLastName.$error">
+            <div ng-message="required"></div>
+        </div>
+        <label>Email Address:</label>
+        <input type="email" name="userEmail" ng-model="email" id="email"
+            ng-pattern="/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/" required />
+        <div ng-messages="feedbackForm.userEmail.$error">
+            <div ng-message="required"></div>
+            <div ng-message="email"></div>
+        </div>
+        <label>Phone Number:</label>
+        <input type="Number" name="userPhoneNumber" id="phoneNumber" ng-model="phoneNumber" ng-pattern="/[0-9]$/"
+            required />
+        <div ng-messages="feedbackForm.userPhoneNumber.$error">
+            <div ng-message="required"></div>
+            <div ng-message="pattern"></div>
+        </div>
+        <label>User Message:</label>
+        <textarea type="text" name="userMessage" class="form-control" rows="3" ng-model="message" ng-minlength="100"
+            ng-maxlength="1000" required></textarea>
+        <div ng-messages="feedbackForm.userMessage.$error">
+            <div ng-message="required" id="req"></div>
+            <div ng-message="minlength"></div>
+            <div ng-message="maxlength"></div>
+        </div>
+        <input type="submit" value="Submit" id="target">
+    </form>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.4/angularmessages.min.js"></script>
+    <div class="footer">
+        <div class="foot_l">
+            <p>For more details: <a href="https://www.mohfw.gov.in/">Govt. Website</a></p>
+            <p>Helpline Number: +91-11-23978046</p>
+        </div>
+        <div class="foot_r">
+            <p>Made by:<br>Sujal Jain - 20BIT0409<br>Avichal Gupta - 20BIT0412<br>Parth Singh - 20BIT0390</p>
+        </div>
+</body>
+
+</html>

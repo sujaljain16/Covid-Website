@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+  position: relative;
+}
+
+.topnav #myLinks {
+  display: none;
+}
+
+.topnav a {
+  color: white;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+  display: block;
+}
+
+.topnav a.icon {
+  background: black;
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.active {
+  background-color: #4CAF50;
+  color: white;
+}
+.footer {
+   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color:#d0d0e1;
+   color: black;
+   text-align: center;
+   padding: 0px 20px;
+}
+.foot_l {
+    float: left;
+}
+.foot_r {
+    float: right;
+    padding-right: 50px;;
+}
+body {
+    background-image : url("covid21.jpg");
+}
+.container {
+  background-color: white;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-style: solid;
+  border-width: 20px 5px;
+  margin-top: 10px;
+}
+marquee {
+  background-color: red;
+  color: white;
+}
+</style>
+<script>
+    $(document).ready(function(){
+      $("#h").click(function(){
+        alert("You'll be redirected to Home!");
+      });
+    });
+</script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['USA',     11],
+          ['Peru',      2],
+          ['Brazil',  2],
+          ['Russia', 2],
+          ['India',    7]
+        ]);
+
+        var options = {
+          title: 'Top Countries with Covid-19 Cases'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+ <script type="text/javascript">
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ["Usa", "Density", { role: "style" } ],
+        ["Usa", 8.94, "#b87333"],
+        ["India", 10.49, "silver"],
+        ["Peru", 19.30, "gold"],
+        ["Brazil", 21.45, "color: #e5e4e2"]
+      ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+      var options = {
+        title: "Density of covid cases",
+        width: 600,
+        height: 400,
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
+      chart.draw(view, options);
+  }
+  </script>   
+</head>
+<body>
+
+
+<!-- Top Navigation Menu -->
+<div class="topnav">
+  <a href="#home" class="active">View Statistics</a>
+  <div id="myLinks">
+    <a href="HomePage.html" id="h">Home</a>
+    <a href="AboutUs.html">About</a>
+    <a href="Contact.html">Contact</a>
+  </div>
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <i class="fa fa-bars"></i>
+  </a>
+</div>
+<script>
+function myFunction() {
+  var x = document.getElementById("myLinks");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+}
+</script>
+<div class="container">
+  <h1 class="text-centre mt-5">CovFirst Live Data</h1>
+<br>
+<table class="table table-hover">
+  <thead>
+    <tr>
+    <th>Total Cases</th>
+    <th>Total Deaths</th>
+    <th>New Deaths</th>
+    <th>New Confirmed</th>
+  </tr>
+     </thead>
+     <tbody>
+        <tr id="data">
+        </tr>
+      </tbody>
+  </table>
+<br><br><br><br><br><br><br><br><br>
+<button onclick="refreshData()" class="btn btn-danger btn-block">Refresh Data</button>	 
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+
+
+ init()
+
+
+function init(){
+  var url = "https://api.covid19api.com/summary"
+  var data = ''
+    
+    $.get(url,function(data){
+      console.log(data.Global)
+    
+    data = `
+    <td>${data.Global.TotalConfirmed}</td>
+    <td>${data.Global.TotalDeaths}</td>
+    <td>${data.Global.NewDeaths}</td>
+    <td>${data.Global.NewConfirmed}</td>
+    `
+    $("#data").html(data)
+    })	   
+}
+function refreshData(){
+  clearData()
+  init()
+}
+function clearData(){
+   $("#data").empty()
+}
+</script>
+<style>
+  .cssmarquee {
+  height: 50px;
+  overflow: hidden;
+  position: relative;
+  }
+  .cssmarquee h1 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding-left: 44%;
+  margin: 0;
+  line-height: 50px;
+  text-align: left;
+  background-color:#4CAF50 ;
+  color: white;
+  animation: cssmarquee 4s ease-out;
+  animation-iteration-count: 1;
+  }
+  @keyframes cssmarquee {
+  0% {
+  transform: translateX(100%);
+  }
+  100% {
+  transform: translateX(0%);
+  }
+  }
+  </style>
+   <br>
+  <div class="cssmarquee">
+  <h1>STAY HOME STAY SAFE!</h1>
+  </div>
+
+
+<!-- <marquee behavior="scroll" direction="left" scrollamount="20">STAY SAFE</marquee> -->
+<div id="piechart" style="width: 900px; height: 250px;"></div> 
+<div id="barchart_values" style="width: 500px; height: 150px;"></div>
+
+
+<div class="footer">
+    <div class="foot_l">
+        <p>For more details: <a href="https://www.mohfw.gov.in/">Govt. Website</a></p>
+        <p>Helpline Number: +91-11-23978046</p>
+    </div>
+    <div class="foot_r">
+      <p>Made by:<br>Sujal Jain - 20BIT0409<br>Avichal Gupta - 20BIT0412<br>Parth Singh - 20BIT0390</p>
+    </div>
+  </div>
+</body>
+</html>

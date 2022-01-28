@@ -1,0 +1,211 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<title> Signup Form</title> 
+<link rel="stylesheet" href= "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+integrity= "sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">     
+<style>
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+.topnav {
+    overflow: hidden;
+    background-color:#b883e4;
+    position: relative;
+}
+.topnav a {
+    color: white;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    display: block;
+}
+.topnav a.icon {
+    background:#b883e4;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.active {
+    background-color: rgba(94, 94, 228, 0.178);
+    color: white;
+}
+
+.main{ 
+    padding:20px; 
+    font-family: 'Helvetica', serif; 
+    box-shadow: 5px 5px 5px 5px #ac7ef5; 
+      
+} 
+.main h1{ 
+    font-size: 50px; 
+    text-align:center; 
+    font-family: 'Helvetica', serif; 
+      
+} 
+input{ 
+    font-family: 'Helvetica', serif; 
+    width: 100%; 
+    font-size: 20px; 
+    padding: 12px 20px; 
+    margin: 8px 0; 
+    border: none; 
+    border-bottom: 2px solid #767474; 
+} 
+input[type=submit] { 
+    font-family: 'Helvetica', serif; 
+    width: 100%; 
+    background-color: #767474; 
+    border: none; 
+    color: white; 
+    padding: 16px 32px; 
+    margin: 4px 2px; 
+    border-radius: 10px; 
+} 
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #b883e4;
+    color: white;
+    text-align: center;
+    padding: 0px 20px;
+}
+
+.foot_l {
+    float: left;
+}
+
+.foot_r {
+    float: right;
+    padding-right: 50px;
+}
+body {
+    background-image: url("bg1.png"); 
+}
+
+</style>
+</head> 
+<body> 
+<div class="topnav">
+    <a href="#home" class="active">Cov-Info</a>
+</div>
+<br>
+    <div class="container" > 
+        <div class="row"> 
+        <div class="col-md-3"> 
+        </div> 
+        <div class="col-md-6 main"> 
+         <form action="/sign_up" method="post" autocomplete="off"> 
+         <h1> Signup form </h1>                 
+            <input class="box" type="text" name="name" id="name" 
+            placeholder="Name"  required /><br>                
+            <input class="box" type="email" name="email" id="email" 
+            placeholder="E-Mail " required /><br>         
+            <input class="box" type="password" name="password" 
+            id="password" placeholder="Password " required/><br>                   
+            <input class="box" type="text" name="phone" id="phone"  
+            placeholder="Phone Number " required/><br><br> 
+            <input type="submit" id="submitDetails"  
+            name="submitDetails" value="Submit" /><br> 
+            </form>        
+        </div>            
+        <div class="col-md-3"> 
+        </div> 
+     </div> 
+    </div>
+     
+    <div class="footer">
+        <div class="foot_l">
+            <p>For more details: <a href="https://www.mohfw.gov.in/">Govt. Website</a></p>
+            <p>Helpline Number: +91-11-23978046</p>
+        </div>
+        <div class="foot_r">
+            <p>Made by:<br>Sujal Jain - 20BIT0409<br>Avichal Gupta - 20BIT0412<br>Parth Singh - 20BIT0390</p>
+        </div>
+</body> 
+</html>  
+
+
+
+
+
+var express = require("express");
+var bodyParser = require("body-parser");
+
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/gfg');
+var db = mongoose.connection;
+db.on('error', console.log.bind(console, "connection error"));
+db.once('open', function (callback) {
+    console.log("connection succeeded");
+})
+
+var app = express()
+app.use(express.static(__dirname));
+
+app.use(bodyParser.json());
+app.use(express.static('public'));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+
+app.post('/sign_up', function (req, res) {
+    var name= req.body.name;
+    var email = req.body.email;
+    var pass = req.body.password;
+    var phone = req.body.phone;
+
+    var data = {
+        "name": name,
+        "email": email,
+        "password": pass,
+        "phone": phone
+    }
+    db.collection('details').insertOne(data, function (err, collection) {
+        if (err) throw err;
+        console.log("Record inserted Successfully");
+
+    });
+
+
+    return res.redirect('Sign_Up_Success.html');
+})
+app.post('/feedback_form', function (req, res) {
+    var firstName = req.body.userFirstName;
+    var lastName = req.body.userLastName;
+    var email = req.body.userEmail;
+    var phoneNumber = req.body.userPhoneNumber;
+    var usermsg=req.body.userMessage;
+
+    var data = {
+        "fname": firstName,
+        "lname": lastName,
+        "email": email,
+        "phone": phoneNumber,
+        "usermsg":usermsg
+    }
+    db.collection('feedback').insertOne(data, function (err, collection) {
+        if (err) throw err;
+        console.log("Record inserted Successfully");
+
+    });
+    return res.redirect('feedback_success.html');
+})
+
+app.get('/', function (req, res) {
+    res.set({
+        'Access-control-Allow-Origin': '*'
+    });
+    return res.redirect('SignUp.html');
+}).listen(3000)
+
+
+console.log("server listening at port 3000");
